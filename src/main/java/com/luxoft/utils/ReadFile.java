@@ -5,26 +5,28 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- The ReadFile class provides a method to read a file and return a list of strings containing all the words in the file.
+ The ReadFile class provides a static method that reads all words from a given file path and returns them as a List of Strings.
+ It uses the Java NIO library to read the file and handle any errors that may occur during the process.
+ The words are converted to lowercase and stored in the list in the order they appear in the file.
  */
 public class ReadFile {
     private static final Logger logger = LogManager.getLogger(ReadFile.class);
     /**
-     Reads a file from the specified path and returns a list of strings containing all the words in the file.
+     Reads all words from a file and returns them as a List of Strings.
      @param filePath the path of the file to be read
-     @return a list of strings containing all the words in the file
-     @throws RuntimeException if there is an error processing the file during reading
+     @return a List of Strings containing all words in the file in the order they appear
      */
     public static List<String> readFile(String filePath) {
         logger.info("Reading file from path: {}", filePath);
 
-        List<String> words;
+        List<String> words = new ArrayList<>();
 
         // Read all words from input file by Files.lines as Stream<String>, then convert to List<String>
         try (Stream<String> wordsStream = Files.lines(Paths.get(filePath))) {
@@ -34,7 +36,6 @@ public class ReadFile {
                     .collect(Collectors.toList());
         } catch (IOException e) {
             logger.error("Error processing file during reading: {}", e.getMessage());
-            throw new RuntimeException("Error processing file during reading: " + e.getMessage());
         } finally {
             logger.info("Finished reading file");
         }

@@ -31,7 +31,7 @@ public class VowelCount {
 
     /**
      Computes and returns the average of the integers added to this VowelCount instance.
-     @return the average of the integers added to this VowelCount instance, or NaN if no integers have been added
+     @return the average of the integers added to this VowelCount instance
      */
     public double getAverage() {
         return (double) total / count;
